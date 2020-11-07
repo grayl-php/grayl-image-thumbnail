@@ -2,8 +2,6 @@
 
    namespace Grayl\Image\Thumbnail;
 
-   use Grayl\Config\ConfigPorter;
-   use Grayl\Config\Controller\ConfigController;
    use Grayl\File\FilePorter;
    use Grayl\Image\Thumbnail\Controller\ThumbnailController;
    use Grayl\Image\Thumbnail\Entity\ThumbnailData;
@@ -20,35 +18,6 @@
 
       // Use the static instance trait
       use StaticTrait;
-
-      /**
-       * The name of the config file for the image package
-       *
-       * @var string
-       */
-      private string $config_file = 'image.thumbnail.php';
-
-      /**
-       * The config instance for the image package
-       *
-       * @var ConfigController
-       */
-      private ConfigController $config;
-
-
-      /**
-       * The class constructor
-       *
-       * @throws \Exception
-       */
-      public function __construct ()
-      {
-
-         // Create the config instance from the config file
-         $this->config = ConfigPorter::getInstance()
-                                     ->newConfigControllerFromFile( $this->config_file );
-      }
-
 
       /**
        * Creates a new ThumbnailController instance
@@ -78,7 +47,7 @@
          $thumbnail_data = new ThumbnailData( $width,
                                               $height,
                                               $axis,
-                                              $this->config->getConfig( 'compression' ) );
+                                              5 );
 
          // Return a new ThumbnailController
          return new ThumbnailController( $source_file,
